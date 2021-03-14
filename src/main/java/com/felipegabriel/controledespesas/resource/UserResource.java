@@ -1,5 +1,8 @@
 package com.felipegabriel.controledespesas.resource;
 
+import java.security.NoSuchAlgorithmException;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,26 +11,31 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.felipegabriel.controledespesas.dto.UserDTO;
 import com.felipegabriel.controledespesas.exceptions.BusinessException;
-import com.felipegabriel.controledespesas.model.entity.Transaction;
-import com.felipegabriel.controledespesas.service.TransactionService;
+import com.felipegabriel.controledespesas.model.entity.User;
+import com.felipegabriel.controledespesas.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/transaction")
 @RequiredArgsConstructor
-public class TransactionResource {
+@RequestMapping("/user")
+public class UserResource {
 
-	private final TransactionService service;
+	private final UserService service;
+	private final ModelMapper modelMapper;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Transaction save(@RequestBody Transaction transaction) {
+	public UserDTO save(@RequestBody User user) {
 		try {
-			return service.save(transaction);
+			User newUser = service.save(user);
+			return modelMapper.map(newUser, UserDTO.class);
 		} catch (BusinessException e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+		} catch (NoSuchAlgorithmException e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao criptografar senha de novo usuário.");
 		}
 	}
 }

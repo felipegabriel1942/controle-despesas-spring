@@ -3,6 +3,7 @@ package com.felipegabriel.controledespesas.resource;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,6 +20,7 @@ public class TransactionCategoryResource {
 	
 	private final TransactionCategoryService service;
 	
+	@GetMapping
 	public List<TransactionCategory> getCategories() {
 		try {
 			return service.getCategories();

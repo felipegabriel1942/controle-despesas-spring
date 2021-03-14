@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class Md5 implements PasswordEncoder {
 	
-	private static MessageDigest md = null;
-	
 	@Override
 	public String encode(CharSequence charSequence) {
 		return null;
@@ -19,7 +17,12 @@ public class Md5 implements PasswordEncoder {
 	@Override
 	public boolean matches(CharSequence rawPassword, String encodedPassword) {
 		try {
-			return md5Encripter(rawPassword).equals(encodedPassword);
+			
+	    	if (rawPassword == null) {
+	    		return false;
+	    	}
+
+			return md5Encripter(rawPassword.toString()).equals(encodedPassword);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
@@ -27,18 +30,14 @@ public class Md5 implements PasswordEncoder {
 		return false;
 	}
 	
-    public static String md5Encripter(CharSequence rawPassword) throws NoSuchAlgorithmException {
-    	md = MessageDigest.getInstance("MD5");
-    	
-    	if (rawPassword == null) {
-    		return "";
-    	}
-    	
+    public static String md5Encripter(String rawPassword) throws NoSuchAlgorithmException {
+    	 MessageDigest md = MessageDigest.getInstance("MD5");
+    	    	
         if (md == null) {
             return "";
         }
         
-        return new String(hexCodes(md.digest(rawPassword.toString().getBytes())));
+        return new String(hexCodes(md.digest(rawPassword.getBytes())));
     }
     
     private static char[] hexCodes(byte[] text) {

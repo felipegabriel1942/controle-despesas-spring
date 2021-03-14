@@ -42,7 +42,8 @@ public class TokenAuthenticationService {
 			try {
 				user = Jwts.parser()
 						.setSigningKey(SECRET)
-						.parseClaimsJwt(token.replace(TOKEN_PREFIX, "")).getBody()
+						.parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+						.getBody()
 						.getSubject();
 			} catch (ExpiredJwtException e) {
 				System.err.println("Expired token.");

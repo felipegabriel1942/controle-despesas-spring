@@ -23,12 +23,14 @@ public class SecurityWebConfiguration extends WebSecurityConfigurerAdapter {
 	private UserDetailImpl userDetailImpl;
 
 	private final String[] PUBLIC_MATCHERS_GET = { "/user/**" };
+	private final String[] PUBLIC_MATCHERS_POST = { "/user/**" };
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.cors().and().csrf().disable()
 			.authorizeRequests()
 			.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
+			.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
 			.anyRequest().authenticated().and()
 			.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
 			.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

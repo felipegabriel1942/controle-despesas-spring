@@ -2,6 +2,7 @@ package com.felipegabriel.controledespesas.service.impl;
 
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,6 @@ public class TransactionServiceImpl implements TransactionService {
 		if (!typeIsValid(transaction)) {
 			throw new BusinessException("Informe um tipo para a transação.");
 		}
-
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	public boolean descriptionIsValid(Transaction transaction) {
-		return transaction.getDescription() != null && transaction.getDescription() != "";
+		return transaction.getDescription() != null && transaction.getDescription().isEmpty();
 	}
 
 	@Override
@@ -75,9 +75,14 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	public void delete(Integer id) {
-		Transaction transaction = repository.findById(id).get();
-		Objects.nonNull(transaction);
-		repository.delete(transaction);
+		Optional<Transaction> transaction = repository.findById(id);
+		
+		if(!transaction.isPresent()) {
+			return;
+		}
+		
+		Objects.nonNull(transaction.get().getId());
+		repository.delete(transaction.get());
 
 	}
 
