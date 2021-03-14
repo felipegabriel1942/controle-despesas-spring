@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
 
-	private TransactionRepository repository;
+	private final TransactionRepository repository;
 
 	@Override
 	public Transaction save(Transaction transaction) {

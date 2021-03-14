@@ -27,5 +27,5 @@ public class User {
 	private String email;
 	
 	@Column(name = "user_password")
-	private String password;
+	private String userPassword;
 }
