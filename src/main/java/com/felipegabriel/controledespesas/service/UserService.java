@@ -17,4 +17,6 @@ public interface UserService {
 	public boolean emailIsValid(User user);
 	
 	public boolean passwordIsValid(User user);
+	
+	public boolean emailAlreadyExists(User user);
 }

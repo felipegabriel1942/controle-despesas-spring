@@ -11,18 +11,18 @@ import com.felipegabriel.controledespesas.model.repository.UserRepository;
 
 @Repository
 public class UserDetailImpl implements UserDetailsService {
-	
+
 	@Autowired
 	private UserRepository repository;
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) {
 		UserDetail userDetail = new UserDetail();
 
 		User user = repository.findByEmail(username).orElse(null);
 
 		if (user == null) {
-			return null;
+			throw new UsernameNotFoundException("E-mail ou senha inválidos");
 		}
 
 		userDetail.setId(user.getId());

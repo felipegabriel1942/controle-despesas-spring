@@ -33,7 +33,7 @@ public class UserResource {
 			User newUser = service.save(user);
 			return modelMapper.map(newUser, UserDTO.class);
 		} catch (BusinessException e) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
 		} catch (NoSuchAlgorithmException e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao criptografar senha de novo usuário.");
 		}
