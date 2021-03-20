@@ -10,7 +10,7 @@ public interface UserService {
 	
 	public void update(User user);
 	
-	public User getUserByEmail(User user);
+	public User getUserByEmail(String email);
 	
 	public void validate(User user);
 	

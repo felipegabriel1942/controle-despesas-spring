@@ -36,11 +36,11 @@ public class UserServiceImpl implements UserService {
 		if (!emailIsValid(user)) {
 			throw new BusinessException("Informe um email válido.");
 		}
-		
+
 		if (!passwordIsValid(user)) {
 			throw new BusinessException("Informe uma senha válida.");
 		}
-		
+
 		if (emailAlreadyExists(user)) {
 			throw new BusinessException("Já existe usuário cadastrado com esse e-mail.");
 		}
@@ -58,12 +58,19 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean emailAlreadyExists(User user) {
-		return getUserByEmail(user) != null;
+		return getUserByEmail(user.getEmail()) != null;
 	}
-	
+
 	@Override
-	public User getUserByEmail(User user) {
-		return repository.findByEmail(user.getEmail()).orElse(null);
+	public User getUserByEmail(String email) {
+
+		User user = repository.findByEmail(email).orElse(null);
+
+		if (user == null) {
+			throw new BusinessException("Usuário não encontrado.");
+		}
+
+		return user;
 	}
 
 }
