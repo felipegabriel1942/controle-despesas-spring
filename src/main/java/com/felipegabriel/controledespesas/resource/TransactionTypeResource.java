@@ -17,13 +17,12 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/type")
 @RequiredArgsConstructor
 public class TransactionTypeResource {
-	
+
 	private final TransactionTypeService service;
-	
+
 	@GetMapping
 	public List<TransactionType> getTypes() {
 		try {
-			
 			return service.getTypes();
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao buscar tipos de transação.");

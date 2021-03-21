@@ -55,6 +55,6 @@ public class Transaction {
 	private TransactionType type;
 	
 	@ManyToOne
-	@JoinColumn(name = "user")
+	@JoinColumn(name = "transaction_user")
 	private User user;
 }

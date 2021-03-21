@@ -60,7 +60,7 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	public boolean descriptionIsValid(Transaction transaction) {
-		return transaction.getDescription() != null && transaction.getDescription().isEmpty();
+		return transaction.getDescription() != null && !transaction.getDescription().isEmpty();
 	}
 
 	@Override

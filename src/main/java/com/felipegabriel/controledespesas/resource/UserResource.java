@@ -3,7 +3,6 @@ package com.felipegabriel.controledespesas.resource;
 import java.security.NoSuchAlgorithmException;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,7 +45,6 @@ public class UserResource {
 	public UserDTO getUserByEmail(@RequestParam("email") String email) {
 		try {
 			User user = service.getUserByEmail(email);
-			
 			return modelMapper.map(user, UserDTO.class);
 		} catch (BusinessException e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());

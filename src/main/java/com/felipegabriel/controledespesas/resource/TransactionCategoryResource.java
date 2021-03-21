@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class TransactionCategoryResource {
 	
 	private final TransactionCategoryService service;
-	
+
 	@GetMapping
 	public List<TransactionCategory> getCategories() {
 		try {
