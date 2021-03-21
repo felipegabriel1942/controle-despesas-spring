@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.felipegabriel.controledespesas.dto.TransactionFilterDTO;
@@ -88,7 +89,7 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	public Page<Transaction> getTransactions(TransactionFilterDTO filter) {
-		// TODO Auto-generated method stub
-		return null;
+		PageRequest page = PageRequest.of(0, 10);
+		return repository.findByUser(filter.getUserId(), page);
 	}
 }
